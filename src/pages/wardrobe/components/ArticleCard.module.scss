@@ -1,0 +1,32 @@
+.card {
+    margin: 5px;
+    width: fit-content;
+    display: flex;
+    flex-direction: column;
+}
+
+.cardImage {
+    margin: 10px 10px 0px 10px;
+}
+
+.cardTitle {
+    text-align: center;
+}
+
+.cardBrand {
+    color: grey;
+    margin-left: 15px;
+    font-size: small;
+}
+
+.cardSize {
+    color: grey;
+    margin-right: 15px;
+    font-size: small;
+}
+
+.cardBrandSizeContainer { 
+    display: flex;
+    justify-content: space-between;
+    margin-top: -25px;
+}

@@ -1,5 +1,14 @@
 import React, { useState } from "react";
-import { Box, Button, Input, InputLabel, Link, TextField } from "@mui/material";
+import {
+  Box,
+  Button,
+  Input,
+  InputLabel,
+  Link,
+  MenuItem,
+  Select,
+  TextField,
+} from "@mui/material";
 import { Formik } from "formik";
 import { initialValues } from "./InitialValues";
 import styles from "./NewArticle.module.scss";
@@ -8,13 +17,16 @@ import {
   collectionStore,
   addNewArticle,
 } from "../../reducers/collectionReducer";
+import { articleTypes } from "./ArticleTypes";
 
 const NewArticle = () => {
   const navigate = useNavigate();
   const [imageFile, setImageFile] = useState<string>("");
+  const [articleType, setArticleType] = useState<string>("");
 
   return (
     <>
+      <button onClick={() => navigate("/wardrobe")}>asd</button>;
       <Button onClick={() => navigate("/")}>{"< Back"}</Button>
       <Button onClick={() => console.log(collectionStore.getState())}>
         {"log"}
@@ -30,6 +42,8 @@ const NewArticle = () => {
             // alert(JSON.stringify(values, null, 2));
             const valuesWithId = {
               ...values,
+              type: articleType !== "Other" ? articleType : values.type,
+              image: imageFile,
               id: collectionStore.getState().collection.length,
             };
             collectionStore.dispatch(addNewArticle(valuesWithId));
@@ -67,14 +81,32 @@ const NewArticle = () => {
                 label="Brand"
               />
 
-              <TextField
-                type="text"
-                name="type"
-                onChange={handleChange}
-                onBlur={handleBlur}
-                value={values.type}
+              <Select
+                value={articleType}
                 label="Type"
-              />
+                onChange={(e) => setArticleType(e.target.value)}
+              >
+                {articleTypes.map((article, index) => {
+                  return (
+                    <MenuItem key={index} value={article.type}>
+                      {article.type}
+                    </MenuItem>
+                  );
+                })}
+              </Select>
+
+              {articleType === "Other" && (
+                <TextField
+                  type="text"
+                  name="type"
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  value={values.type}
+                  label="Type"
+                />
+              )}
+
+              <Button onClick={() => console.log(values.type)}></Button>
 
               <Input
                 type="file"
