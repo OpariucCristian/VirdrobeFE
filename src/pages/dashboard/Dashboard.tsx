@@ -11,7 +11,7 @@ const Dashboard = () => {
         <h2 className={styles.title}>Manage your wardrobe digitally.</h2>
         <Box>
           <Button>How it works</Button>
-          <Button variant="outlined" onClick={() => navigate("/newArticle")}>
+          <Button variant="contained" onClick={() => navigate("/newArticle")}>
             Get started
           </Button>
         </Box>

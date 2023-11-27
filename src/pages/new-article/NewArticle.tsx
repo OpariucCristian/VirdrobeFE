@@ -19,6 +19,8 @@ import {
   addNewArticle,
 } from "../../reducers/collectionReducer";
 import { articleTypes } from "./ArticleTypes";
+import { ToastContainer, toast } from "react-toastify";
+import NewArticleToast from "./new-article-toast/NewArticleToast";
 
 const NewArticle = () => {
   const navigate = useNavigate();
@@ -164,8 +166,11 @@ const NewArticle = () => {
                     <span>
                       <Button
                         type="submit"
-                        disabled={isSubmitting || !values.name || !values.image}
+                        // disabled={isSubmitting || !values.name || !values.image}
                         variant="contained"
+                        onClick={() =>
+                          toast(<NewArticleToast imageFile={imageFile} />)
+                        }
                       >
                         <h4>Add to wardrobe</h4>
                       </Button>
@@ -177,6 +182,7 @@ const NewArticle = () => {
           </Formik>
 
           <img
+            className={styles.newArticlePicture}
             src={imageFile || "/article-placeholder.png"}
             width={500}
             height={500}
