@@ -1,32 +1,34 @@
+import { ArticleTypesEnum } from "../../constants/ArticleTypesConstant";
+
 export const articleTypes = [
   {
-    type: "Other",
+    type: ArticleTypesEnum.OTHER,
   },
   {
-    type: "T-shirt",
+    type: ArticleTypesEnum.T_SHIRT,
   },
   {
-    type: "Pants",
+    type: ArticleTypesEnum.PANTS,
   },
   {
-    type: "Shirt",
+    type: ArticleTypesEnum.SHIRT,
   },
   {
-    type: "Jacket",
+    type: ArticleTypesEnum.JACKET,
   },
   {
-    type: "Dress",
+    type: ArticleTypesEnum.DRESS,
   },
   {
-    type: "Skirt",
+    type: ArticleTypesEnum.SKIRT,
   },
   {
-    type: "Coat",
+    type: ArticleTypesEnum.COAT,
   },
   {
-    type: "Underwear",
+    type: ArticleTypesEnum.UNDERWEAR,
   },
   {
-    type: "Shoes",
+    type: ArticleTypesEnum.SHOES,
   },
 ];

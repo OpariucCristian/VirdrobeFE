@@ -3,23 +3,23 @@ import Dashboard from "./pages/dashboard/Dashboard";
 import NewArticle from "./pages/new-article/NewArticle";
 import Wardrobe from "./pages/wardrobe/Wardrobe";
 
-export const ROUTE_NAMES = {
-  DEFAULT_PATH: "/",
+export const ROUTES = {
+  DASHBOARD: "/",
   NEW_ARTICLE: "/newArticle",
   WARDROBE: "/wardrobe",
 };
 
 export const routes: RouteObject[] = [
   {
-    path: ROUTE_NAMES.DEFAULT_PATH,
+    path: ROUTES.DASHBOARD,
     element: <Dashboard />,
   },
   {
-    path: ROUTE_NAMES.NEW_ARTICLE,
+    path: ROUTES.NEW_ARTICLE,
     element: <NewArticle />,
   },
   {
-    path: ROUTE_NAMES.WARDROBE,
+    path: ROUTES.WARDROBE,
     element: <Wardrobe />,
   },
 ];

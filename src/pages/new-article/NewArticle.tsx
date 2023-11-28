@@ -21,6 +21,8 @@ import {
 import { articleTypes } from "./ArticleTypes";
 import { ToastContainer, toast } from "react-toastify";
 import NewArticleToast from "./new-article-toast/NewArticleToast";
+import { ROUTES } from "../../routes";
+import { ArticleTypesEnum } from "../../constants/ArticleTypesConstant";
 
 const NewArticle = () => {
   const navigate = useNavigate();
@@ -29,8 +31,8 @@ const NewArticle = () => {
 
   return (
     <>
-      <button onClick={() => navigate("/wardrobe")}>asd</button>;
-      <Button onClick={() => navigate("/")}>{"< Back"}</Button>
+      <button onClick={() => navigate(ROUTES.WARDROBE)}>asd</button>;
+      <Button onClick={() => navigate(ROUTES.DASHBOARD)}>{"< Back"}</Button>
       <Button onClick={() => console.log(collectionStore.getState())}>
         {"log"}
       </Button>
@@ -46,7 +48,7 @@ const NewArticle = () => {
               }
               return errors;
             }}
-            onSubmit={(values, { setSubmitting }) => {
+            onSubmit={(values, { setSubmitting, resetForm }) => {
               setTimeout(() => {
                 // alert(JSON.stringify(values, null, 2));
                 const valuesWithId = {
@@ -57,6 +59,8 @@ const NewArticle = () => {
                 };
                 collectionStore.dispatch(addNewArticle(valuesWithId));
                 setSubmitting(false);
+                setImageFile("");
+                resetForm();
               }, 400);
             }}
           >
@@ -108,7 +112,7 @@ const NewArticle = () => {
                     })}
                   </Select>
 
-                  {articleType === "Other" && (
+                  {articleType === ArticleTypesEnum.OTHER && (
                     <TextField
                       type="text"
                       name="type"
