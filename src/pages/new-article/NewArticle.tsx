@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useCallback, useMemo, useState } from "react";
 import {
   Box,
   Button,
@@ -23,11 +23,32 @@ import { ToastContainer, toast } from "react-toastify";
 import NewArticleToast from "./new-article-toast/NewArticleToast";
 import { ROUTES } from "../../routes";
 import { ArticleTypesEnum } from "../../constants/ArticleTypesConstant";
+import { useDropzone } from "react-dropzone";
 
 const NewArticle = () => {
   const navigate = useNavigate();
   const [imageFile, setImageFile] = useState<string>("");
-  const [articleType, setArticleType] = useState<string>("");
+  const [articleType, setArticleType] = useState<string>(
+    ArticleTypesEnum.T_SHIRT
+  );
+
+  // const onDrop = useCallback((acceptedFiles) => {
+  //   setImageFile(acceptedFiles);
+  // }, []);
+  const {
+    getRootProps,
+    getInputProps,
+    isDragActive,
+    isDragAccept,
+    isDragReject,
+  } = useDropzone({
+    onDrop: (acceptedFiles) => {
+      setImageFile(URL.createObjectURL(acceptedFiles[0]));
+    },
+    accept: {
+      "image/*": [".jpeg", ".png"],
+    },
+  });
 
   return (
     <>
@@ -72,7 +93,6 @@ const NewArticle = () => {
               handleBlur,
               handleSubmit,
               isSubmitting,
-              /* and other goodies */
             }) => (
               <form onSubmit={handleSubmit}>
                 <Box className={styles.formInputsContainer}>
@@ -124,24 +144,6 @@ const NewArticle = () => {
                     />
                   )}
 
-                  <Button onClick={() => console.log(values.type)}></Button>
-
-                  <Button variant="contained" component="label" fullWidth>
-                    <h4>Upload photo</h4>
-                    <input
-                      type="file"
-                      hidden
-                      name="image"
-                      onChange={(e: any) => {
-                        handleChange(e);
-                        setImageFile(URL.createObjectURL(e.target.files[0]));
-                      }}
-                      onBlur={handleBlur}
-                      value={values.image}
-                      accept={"image/gif, image/jpeg, image/png"}
-                    />
-                  </Button>
-
                   <TextField
                     type="text"
                     name="size"
@@ -161,6 +163,39 @@ const NewArticle = () => {
                     label="Color"
                     fullWidth
                   />
+
+                  {/* <Button variant="contained" component="label" fullWidth>
+                    <h4>Upload photo</h4>
+                    <input
+                      type="file"
+                      hidden
+                      name="image"
+                      onChange={(e: any) => {
+                        handleChange(e);
+                        setImageFile(URL.createObjectURL(e.target.files[0]));
+                      }}
+                      onBlur={handleBlur}
+                      value={values.image}
+                      accept={"image/gif, image/jpeg, image/png"}
+                    /> */}
+                  {/* </Button> */}
+
+                  <Box
+                    className={`${styles.baseStyle} ${
+                      isDragActive && styles.focusedStyle
+                    } ${isDragAccept && styles.acceptStyle} ${
+                      isDragReject && styles.rejectStyle
+                    }`}
+                  >
+                    <Box {...getRootProps()}>
+                      <input {...getInputProps()} />
+                      {isDragActive ? (
+                        <p>Drop the files here ...</p>
+                      ) : (
+                        <p>Drag and drop your picture here</p>
+                      )}
+                    </Box>
+                  </Box>
 
                   <Tooltip
                     title="Each article needs to at least contain a name and a picture"
